@@ -21,11 +21,11 @@
         </activity>
         <activity android:name=".Fragments.FragmentSetting">
         </activity>
-        <activity android:name=".NfcReader">
+        <activity android:name=".ChoosePayement">
         </activity>
         <activity android:name=".Qrcode">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Nfc.NfcReader">
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED"/>
             </intent-filter>
@@ -40,7 +40,7 @@
                     android:resource="@xml/nfc_tech_filter"/>
         </activity>
         <activity
-                android:name=".ChoosePayement"
+                android:name=".MainActivity"
                 android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

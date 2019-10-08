@@ -1,4 +1,4 @@
-package com.example.cash_register
+package com.example.cash_register.Nfc
 
 class Utils {
 

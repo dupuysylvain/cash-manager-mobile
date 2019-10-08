@@ -7,4 +7,12 @@
         android:layout_height="match_parent"
         tools:context=".Fragments.FragmentSetting">
 
+    <TextView android:layout_width="186dp"
+              android:layout_height="39dp"
+              android:text="Fragment server setting"
+              android:id="@+id/textView2"
+              app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+              android:layout_marginTop="182dp" app:layout_constraintEnd_toEndOf="parent"/>
+
+
 </android.support.constraint.ConstraintLayout>

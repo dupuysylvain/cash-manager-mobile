@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import com.example.cash_register.Fragments.FragmentHome
-import com.example.cash_register.Fragments.FragmentServerInfo
 import com.example.cash_register.Fragments.FragmentSetting
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,21 +24,20 @@ class MainActivity : AppCompatActivity() {
         adapterViewPager = MyPageAdapter(supportFragmentManager)
         viewPager.adapter = adapterViewPager
 
-        viewPager.currentItem = 1
+        viewPager.currentItem = 0
     }
     class MyPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment? {
             when (position) {
-                0 -> return FragmentServerInfo.newInstance()
-                1 -> return FragmentHome.newInstance()
-                2 -> return FragmentSetting.newInstance()
+                0 -> return FragmentHome.newInstance()
+                1 -> return FragmentSetting.newInstance()
             }
             return null
         }
 
         override fun getCount(): Int {
-            return 3
+            return 2
         }
         // nombre de page
     }

@@ -5,14 +5,11 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import java.security.AccessController.getContext
-import android.nfc.NfcAdapter
-import android.content.Context.NFC_SERVICE
-import android.support.v4.content.ContextCompat.getSystemService
-import android.nfc.NfcManager
 
+import android.widget.ImageButton
+
+import android.nfc.NfcManager
+import com.example.cash_register.Nfc.NfcReader
 
 
 class ChoosePayement : AppCompatActivity() {
@@ -32,7 +29,7 @@ class ChoosePayement : AppCompatActivity() {
 
         val btn:ImageButton = findViewById(R.id.btn_nfc)
         btn.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this,NfcReader::class.java)
+            val intent = Intent(this, NfcReader::class.java)
             startActivity(intent) })
         }
         else {

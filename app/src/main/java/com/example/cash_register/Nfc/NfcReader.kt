@@ -1,4 +1,4 @@
-package com.example.cash_register
+package com.example.cash_register.Nfc
 
 import android.nfc.NfcAdapter
 import android.nfc.Tag
@@ -6,7 +6,7 @@ import android.nfc.tech.IsoDep
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.cash_register.R
 import kotlinx.android.synthetic.main.activity_nfc_reader.*
 
 class NfcReader : AppCompatActivity(), NfcAdapter.ReaderCallback  {
@@ -47,7 +47,7 @@ class NfcReader : AppCompatActivity(), NfcAdapter.ReaderCallback  {
         isoDep.connect()
         //Utils.hexStringToByteArray("00A4040007A0000002471001"))
         runOnUiThread {
-            textView.append("\nCard Response: " + Utils.toHex(isoDep.tag.id) )
+            textView.append("\nCard Response: " + Utils.toHex(isoDep.tag.id))
             isoDep.close()
         }
     }
