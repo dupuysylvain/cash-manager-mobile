@@ -1,10 +1,14 @@
 package com.example.cash_register.Nfc
 
+import android.content.Context
+import android.content.Intent
 import android.nfc.NfcAdapter
+import android.nfc.NfcManager
 import android.nfc.Tag
 import android.nfc.tech.IsoDep
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import com.example.cash_register.R
 import kotlinx.android.synthetic.main.activity_nfc_reader.*
@@ -16,13 +20,20 @@ class NfcReader : AppCompatActivity(), NfcAdapter.ReaderCallback  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc_reader)
+        val manager = this.getSystemService(Context.NFC_SERVICE) as NfcManager
+        val adapter = manager.defaultAdapter
 
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+        if (adapter != null && adapter.isEnabled) {
 
-        av_from_code.setAnimation("nfc_payment2.json")
-        av_from_code.playAnimation()
-        av_from_code.loop(true)
+            nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
+            av_from_code.setAnimation("nfc_payment2.json")
+            av_from_code.playAnimation()
+            av_from_code.loop(true)
+
+        }else {
+            startNfcSettingsActivity()
+        }
     }
 
     public override fun onResume() {
@@ -49,6 +60,15 @@ class NfcReader : AppCompatActivity(), NfcAdapter.ReaderCallback  {
         runOnUiThread {
             textView.append("\nCard Response: " + Utils.toHex(isoDep.tag.id))
             isoDep.close()
+        }
+    }
+
+
+    private fun startNfcSettingsActivity() {
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            startActivity(Intent(Settings.ACTION_NFC_SETTINGS))
+        } else {
+            startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
         }
     }
 }
