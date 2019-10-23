@@ -88,7 +88,7 @@ class Qrcode : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCal
             // Use this function to set back camera preview
             qrdecoderview.setBackCamera()
 
-            flashlightCheckBox!!.setOnCheckedChangeListener { _, isChecked ->
+            flashlightCheckBox!!.setOnCheckedChangeListener { compoundButton, isChecked ->
                 qrCodeReaderView!!.setTorchEnabled(
                     isChecked
                 )

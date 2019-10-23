@@ -1,4 +1,4 @@
-package com.example.cash_register
+package com.example.cash_register.view
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

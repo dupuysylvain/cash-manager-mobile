@@ -1,4 +1,4 @@
-package com.example.cash_register
+package com.example.cash_register.view
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +8,8 @@ import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import com.example.cash_register.MainActivity
+import com.example.cash_register.R
 
 class SplashScreen : AppCompatActivity() {
     private var imageLogo: ImageView? = null

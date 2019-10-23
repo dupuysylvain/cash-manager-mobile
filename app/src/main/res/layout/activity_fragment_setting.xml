@@ -11,10 +11,7 @@
               android:text="Fragment server setting"
               android:id="@+id/textView2"
               android:layout_centerHorizontal="true"
-              android:layout_marginTop="300dp"
-
-
-    />
+              android:layout_marginTop="300dp"  />
 
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.cash_register
+package com.example.cash_register.view
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageButton
  import com.example.cash_register.Nfc.NfcReader
 import com.example.cash_register.QRcode.Qrcode
+import com.example.cash_register.R
 
 
 class ChoosePayement : AppCompatActivity() {

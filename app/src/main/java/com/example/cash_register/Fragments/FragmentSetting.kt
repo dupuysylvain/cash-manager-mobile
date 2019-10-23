@@ -9,17 +9,7 @@ import com.example.cash_register.R
 
 class FragmentSetting : Fragment() {
 
-    companion object {
-
-        fun newInstance(): FragmentSetting {
-            return FragmentSetting()
-        }
-    }
-
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-    {
-        return inflater.inflate(R.layout.activity_fragment_setting, container, false)
-    }
+    { return inflater.inflate(R.layout.activity_fragment_setting, container, false) }
+
 }

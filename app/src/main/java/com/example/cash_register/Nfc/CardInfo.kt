@@ -1,7 +1,8 @@
-package com.example.cash_register
+package com.example.cash_register.Nfc
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.cash_register.R
 
 class CardInfo : AppCompatActivity() {
 

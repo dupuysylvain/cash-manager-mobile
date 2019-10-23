@@ -5,11 +5,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CardInfo">
+        tools:context=".Nfc.CardInfo">
 
 
-    <ImageView android:layout_width="255dp"
-               android:layout_height="169dp"
+    <ImageView android:layout_width="261dp"
+               android:layout_height="159dp"
                android:src="@drawable/icon_card"
                android:id="@+id/img2"
                android:layout_marginStart="55dp"

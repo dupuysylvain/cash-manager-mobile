@@ -1,7 +1,7 @@
 package com.example.cash_register
 
- import android.os.Bundle
- import android.support.design.widget.BottomNavigationView
+import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 
 import android.support.v4.view.ViewPager
@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.MenuItem
 import com.example.cash_register.Fragments.FragmentArticles
 import com.example.cash_register.Fragments.FragmentSetting
+import com.example.cash_register.view.ViewPagerAdapter
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_main)
-
 
         //Initializing viewPager
         viewpager = findViewById(R.id.viewPager)

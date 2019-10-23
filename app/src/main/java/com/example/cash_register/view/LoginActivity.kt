@@ -1,4 +1,4 @@
-package com.example.cash_register
+package com.example.cash_register.view
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.cash_register.R
 
 class LoginActivity : AppCompatActivity() {
 
