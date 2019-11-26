@@ -10,5 +10,9 @@
             android:id="@+id/navigation_setting"
             android:icon="@drawable/icon_setting"
             android:title="@string/title_settings"/>
+    <item
+        android:id="@+id/navigation_scanBarCode"
+        android:icon="@drawable/icon_scan"
+        android:title="@string/title_scanBarcode"/>
 
 </menu>

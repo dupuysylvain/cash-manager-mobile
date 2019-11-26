@@ -4,6 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScanCreditCard">
+    tools:context=".view.ScanCreditCard">
+
+
+    <Button
+        android:id="@+id/btnScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="184dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:text="Scan Card"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardDetail" />
+
+    <TextView
+        android:id="@+id/tvCardDetail"
+        android:layout_width="311dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="87dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="148dp"
+        android:text="card info"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnScan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

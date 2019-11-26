@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
  import com.example.cash_register.Nfc.NfcReader
 import com.example.cash_register.QRcode.Qrcode
@@ -30,6 +31,11 @@ class ChoosePayement : AppCompatActivity() {
             btn2.setOnClickListener(View.OnClickListener {
                 val intent = Intent(this, Qrcode::class.java)
                 startActivity(intent) })
+
+        val btn3:Button = findViewById(R.id.cardscan)
+        btn3.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, ScanCreditCard::class.java)
+            startActivity(intent) })
         }
     }
 

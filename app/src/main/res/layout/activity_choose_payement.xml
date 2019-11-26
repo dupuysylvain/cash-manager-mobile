@@ -5,32 +5,61 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ChoosePayement">
+        tools:context=".view.ChoosePayement" >
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/linear1"
+                   app:layout_constraintBottom_toTopOf="@id/linear2">
+
+        <ImageView android:layout_width="410dp"
+                   android:layout_height="450dp"
+                   android:layout_marginTop="10dp"
+                   android:src="@drawable/choose_pay"
+                   android:id="@+id/imageView2"
+                   tools:layout_editor_absoluteY="61dp"
+                   tools:ignore="Suspicious0dp"/>
 
 
-    <ImageView android:layout_width="405dp"
-               android:layout_height="376dp"
-               android:src="@drawable/choose_pay"
-               android:id="@+id/imageView2"
-               android:layout_marginStart="25dp"
-               android:layout_marginTop="80dp"/>
+    </LinearLayout>
 
-    <ImageButton android:layout_width="120dp"
-                 android:layout_height="35dp"
-                 android:id="@+id/btn_nfc"
-                 android:src="@drawable/btn_nfc"
-                 android:layout_alignParentBottom="true"
-                 android:layout_marginStart="40dp"
-                 android:layout_marginBottom="60dp"
-                 android:layout_alignParentStart="true"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/linear2"
+                  android:layout_marginBottom="40dp"
+                    android:layout_alignParentBottom="true">
 
-    <ImageButton android:layout_width="120dp"
-                 android:layout_height="35dp"
-                 android:id="@+id/btn_qr"
-                 android:src="@drawable/btn_qr"
-                 android:layout_alignParentBottom="true"
-                 android:layout_marginBottom="60dp"
-                 android:layout_marginEnd="40dp"
-                 android:layout_alignParentEnd="true"/>
+        <RelativeLayout android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+            <ImageButton android:layout_width="121dp"
+                         android:layout_height="37dp"
+                         android:id="@+id/btn_nfc"
+                         android:src="@drawable/btn_nfc"
+                         android:layout_alignParentStart="true"
+                         android:layout_marginStart="21dp"/>
+
+            <ImageButton android:layout_width="122dp"
+                         android:layout_height="36dp"
+                         android:id="@+id/btn_qr"
+                         android:src="@drawable/btn_qr"
+
+                         android:layout_alignStart="@+id/btn_nfc"
+                         android:layout_marginTop="1dp"
+                         android:layout_alignParentTop="true"
+                         android:layout_marginStart="209dp"/>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cardscan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cardscan" />
+
 
 </RelativeLayout>

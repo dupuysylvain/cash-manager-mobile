@@ -1,10 +1,11 @@
-package com.example.cash_register
+package com.example.cash_register.view
 
 import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.cash_register.R
 import io.card.payment.CardIOActivity
 import io.card.payment.CreditCard
 import kotlinx.android.synthetic.main.activity_scan_credit_card.*

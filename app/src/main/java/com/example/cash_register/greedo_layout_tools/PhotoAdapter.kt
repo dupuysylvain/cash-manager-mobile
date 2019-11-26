@@ -59,7 +59,6 @@ class PhotosAdapter(private val mContext: Context) : RecyclerView.Adapter<Photos
         }
     }
 
-    // Index gets wrapped around <code>Constants.IMAGES.length</code> so we can loop content.
     private fun getLoopedIndex(index: Int): Int {
         return index % Constants.IMAGES.size // wrap around
     }

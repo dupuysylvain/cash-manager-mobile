@@ -1,3 +1,6 @@
 package com.example.cash_register.dto
 
-class ArticleDto()
+data class ArticleDto(val barcode: String,
+                      val name: String,
+                      var price: Int,
+                      val image: String)

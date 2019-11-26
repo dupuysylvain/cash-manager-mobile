@@ -21,17 +21,12 @@ import kotlinx.android.synthetic.main.activity_qrcode.*
 
 
 
-
-
 class Qrcode : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback, OnQRCodeReadListener {
 
     private val MY_PERMISSION_REQUEST_CAMERA = 0
     private var resultTextView: TextView? = null
     private var qrCodeReaderView: QRCodeReaderView? = null
     private var flashlightCheckBox: CheckBox? = null
-
-
-
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,20 +51,14 @@ class Qrcode : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCal
             override fun onAnimationEnd(animation: Animation) {
                 bar.visibility = View.GONE
             }
-
             override fun onAnimationRepeat(animation: Animation) {}
         })
-
-
-
-
 
         if (ActivityCompat.checkSelfPermission(this, permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
 
             qrCodeReaderView =  findViewById(R.id.qrdecoderview)
             resultTextView = findViewById(R.id.result_text_view)
             flashlightCheckBox = findViewById(R.id.flashlight_checkbox)
-
 
             qrdecoderview.setOnQRCodeReadListener(this)
 
@@ -93,14 +82,9 @@ class Qrcode : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCal
                     isChecked
                 )
             }
-
-
         } else {
             requestCameraPermission()
         }
-
-
-
     }
 
     override fun onResume() {
