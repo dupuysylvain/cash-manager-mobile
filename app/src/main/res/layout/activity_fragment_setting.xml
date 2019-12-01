@@ -6,12 +6,33 @@
         android:layout_height="match_parent"
         tools:context=".Fragments.FragmentSetting">
 
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Fragment server setting"
-              android:id="@+id/textView2"
-              android:layout_centerHorizontal="true"
-              android:layout_marginTop="300dp"  />
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/serverUrl"
+        android:layout_width="376dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="340dp"
+        android:hint="server address" />
+
+    <Button
+        android:id="@+id/saveUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="205dp"
+        android:text="Save" />
 
 
 </RelativeLayout>

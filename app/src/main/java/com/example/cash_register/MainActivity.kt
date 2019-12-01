@@ -1,6 +1,5 @@
     package com.example.cash_register
 
-    import android.content.Intent
     import android.os.Bundle
     import android.support.design.widget.BottomNavigationView
     import android.support.v4.app.Fragment
@@ -80,7 +79,7 @@
 
             fragmentArticles = FragmentArticles()
             fragmentSetting = FragmentSetting()
-           fragmentScanBarcode = FragmentScanArticle()
+            fragmentScanBarcode = FragmentScanArticle()
 
             adapter.addFragment(fragmentArticles)
             adapter.addFragment(fragmentSetting)

@@ -29,4 +29,9 @@ object Prefs {
         val sharedPreferences = context.getSharedPreferences(sharedPrefs, MODE_PRIVATE)
         return sharedPreferences.getString(key, "")
     }
+
+    fun getApiUrl(context: Context): String {
+        var apiUrlShared = getString(context, Constants.SHARED_PREFS, Constants.API_URL)
+        return if(apiUrlShared == "") "http://localhost:8080" else apiUrlShared!!
+    }
 }
