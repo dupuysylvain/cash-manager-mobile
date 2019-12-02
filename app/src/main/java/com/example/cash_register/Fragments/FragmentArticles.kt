@@ -1,5 +1,8 @@
 package com.example.cash_register.Fragments
 
+import android.app.Activity
+import android.app.PendingIntent.getActivity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,22 +12,24 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import com.example.cash_register.R
+import com.example.cash_register.*
+import com.example.cash_register.LoggingInterceptor
 import com.fivehundredpx.greedolayout.GreedoLayoutManager
 import com.fivehundredpx.greedolayout.GreedoSpacingItemDecoration
 import com.example.cash_register.greedo_layout_tools.MeasUtils
 import com.example.cash_register.greedo_layout_tools.PhotosAdapter
 import com.example.cash_register.services.Session
 import com.example.cash_register.view.ChoosePayement
-import kotlinx.android.synthetic.main.activity_login.*
-import okhttp3.Callback
-import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
+
 import java.io.IOException
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
+
+import com.example.cash_register.MyApplication.getAppContext
+import okhttp3.*
+import android.os.AsyncTask.execute
+import okhttp3.OkHttpClient
 
 
 
@@ -62,32 +67,28 @@ class FragmentArticles : Fragment() {
 
     @Throws(IOException::class)
     fun getArticles() {
-        val cookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
-
         val client = OkHttpClient.Builder()
-            .cookieJar(cookieJar)
+            .addInterceptor(LoggingInterceptor())
             .build()
 
         val request = Request.Builder()
-            .url(API_URL + "api/articles")
-            .get()
-            .addHeader("Authorization", "Bearer  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzZWN1cmUtYXBpIiwiYXVkIjoic2VjdXJlLWFwcCIsInN1YiI6ImFkbWluLmFkbWluIiwiZXhwIjoxNTc1MDE5OTIwLCJyb2wiOlsiQURNSU5fVVNFUiIsIlNUQU5EQVJEX1VTRVIiXX0.aEXXG1HFNl5B1lqvgFxpqmVVD9KeNHLKvx2I6r8_Erk4mhZ7zC_VyhgxNfcXyNiLjul65AS427ff5zra8P2tnQ" )
-             .build()
+            .url(Prefs.getApiUrl(this.requireContext()) + "/api/articles")
+            .header("Authorization", Prefs.getString(getAppContext(),Constants.SHARED_PREFS, Constants.API_URL))
+            .build()
 
-        client.newCall(request).enqueue(object : Callback {
+        val response = client.newCall(request).execute()
+        response.body()?.close()
+
+        client.newCall(request).enqueue(object : okhttp3.Callback {
             override fun onFailure(call: okhttp3.Call, e: IOException) {
                 Log.d("error", e.message)
+             }
 
-            }
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
-                Log.d("message",  response.message())
-                Log.d("body",  response.body().toString())
-
-
+                Log.d("success", response.message())
             }
         })
-
     }
-
 }
+
 

@@ -18,8 +18,8 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
+ import com.example.cash_register.MainActivity
 import com.example.cash_register.R
-import com.example.cash_register.MainActivity
 
 
 class FragmentLogin : Fragment() {
@@ -58,6 +58,7 @@ class FragmentLogin : Fragment() {
             .setType(MultipartBody.FORM)
             .addFormDataPart("username", username.text.toString())
             .addFormDataPart("password", password.text.toString())
+
             .build()
 
         val request = Request.Builder()
@@ -71,6 +72,7 @@ class FragmentLogin : Fragment() {
                 Log.d("error", e.message)
                 handleLoginError()
             }
+
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                 var token = response.header("Authorization").toString()
                 handleLogin(token)
@@ -80,18 +82,25 @@ class FragmentLogin : Fragment() {
 
     fun handleLogin(token: String) {
         Prefs.setString(requireContext(), Constants.SHARED_PREFS, Constants.TOKEN, token)
-
         activity!!.runOnUiThread(Runnable {
-            Toast.makeText(requireContext(), "Authentification effectuée avec succès.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Authentification effectuée avec succès.",
+                Toast.LENGTH_SHORT
+            ).show()
         })
-
         val i = Intent(activity, MainActivity::class.java)
         startActivity(i)
     }
 
+
     fun handleLoginError() {
         activity!!.runOnUiThread(Runnable {
-            Toast.makeText(requireContext(), "Erreur lors de la tentative de connexion", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Erreur lors de la tentative de connexion",
+                Toast.LENGTH_SHORT
+            ).show()
         })
     }
 }
