@@ -73,7 +73,7 @@ class FragmentArticles : Fragment() {
 
         val request = Request.Builder()
             .url(Prefs.getApiUrl(this.requireContext()) + "/api/articles")
-            .header("Authorization", Prefs.getString(getAppContext(),Constants.SHARED_PREFS, Constants.API_URL))
+            .header("Authorization", Prefs.getString(this.requireContext(),Constants.SHARED_PREFS, Constants.TOKEN))
             .build()
 
         val response = client.newCall(request).execute()
