@@ -20,6 +20,7 @@ import okhttp3.Request
 import java.io.IOException
  import com.example.cash_register.MainActivity
 import com.example.cash_register.R
+import com.example.cash_register.network.AuthenticationInterceptor
 
 
 class FragmentLogin : Fragment() {
@@ -82,7 +83,8 @@ class FragmentLogin : Fragment() {
 
     fun handleLogin(token: String) {
         Prefs.setString(requireContext(), Constants.SHARED_PREFS, Constants.TOKEN, token)
-        activity!!.runOnUiThread(Runnable {
+        AuthenticationInterceptor(token)
+         activity!!.runOnUiThread(Runnable {
             Toast.makeText(
                 requireContext(),
                 "Authentification effectuée avec succès.",
