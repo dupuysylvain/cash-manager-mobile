@@ -25,6 +25,8 @@ class ArticleAdapter(val items : ArrayList<Article>, val context: Context) : Rec
 
 }
 
+
+
 class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     // Holds the TextView that will add each animal to
     val tvAnimalType = view.tv_article_type

@@ -65,7 +65,6 @@ class FragmentArticles : Fragment() {
         recycler_view_articles.layoutManager = GridLayoutManager(context, 2)
         recycler_view_articles.adapter = ArticleAdapter(taVAriable, this.requireContext())
 
-       // getArticles()
         return view
     }
 
@@ -89,12 +88,6 @@ class FragmentArticles : Fragment() {
 
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                 val gson = Gson()
-               /* val listType = object : TypeToken<ArrayList<Article>>() {}.type
-               articles  = gson.fromJson(response.body()!!.string(), listType)
-                for(article in articles){
-                     articles.add(article)
-                 }*/
-
                 val articles = gson.fromJson(response.body()!!.string(),  Array<Article>::class.java)
                 for(article in articles){
                     articleList = article
@@ -104,6 +97,8 @@ class FragmentArticles : Fragment() {
         })
         return articles
     }
+
+
 }
 
 

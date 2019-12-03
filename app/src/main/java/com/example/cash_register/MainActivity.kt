@@ -13,10 +13,15 @@
     import com.example.cash_register.Fragments.FragmentScanArticle
     import com.example.cash_register.Fragments.FragmentSetting
     import com.example.cash_register.view.ViewPagerAdapter
+import android.widget.TextView
+    import android.support.v4.view.MenuItemCompat
+    import android.view.Menu
+    import android.view.View
 
 
     class MainActivity : AppCompatActivity() {
-
+        var textCartItemCount: TextView? = null
+        var mCartItemCount = 10
         //BottomNavigationView
         private var bottomNavigationView: BottomNavigationView? = null
         //viewPager
@@ -31,11 +36,6 @@
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            try {
-                this.supportActionBar!!.hide()
-              }
-            catch (e: NullPointerException) {
-            }
 
             setContentView(R.layout.activity_main)
 
@@ -71,7 +71,11 @@
                 override fun onPageScrollStateChanged(state: Int) {}
             })
             setupViewPager(viewpager!!)
+
+
+
         }
+
 
         private fun setupViewPager(viewPager: ViewPager) {
             val adapter = ViewPagerAdapter(supportFragmentManager)
@@ -88,4 +92,51 @@
          }
 
 
+
+        override fun onCreateOptionsMenu(menu: Menu): Boolean {
+            menuInflater.inflate(R.menu.menu_badge, menu)
+
+            val menuItem = menu.findItem(R.id.action_cart)
+
+            val actionView = MenuItemCompat.getActionView(menuItem)
+            textCartItemCount = actionView.findViewById(R.id.cart_badge)
+
+            setupBadge()
+
+            actionView.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View) {
+                    onOptionsItemSelected(menuItem)
+                }
+            })
+
+            return true
+        }
+
+        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+            when (item.itemId) {
+
+                R.id.cart_badge -> {
+                    // Do something
+                    return true
+                }
+            }
+            return super.onOptionsItemSelected(item)
+        }
+
+        fun setupBadge() {
+
+            if (textCartItemCount != null) {
+                if (mCartItemCount == 0) {
+                    if (textCartItemCount!!.getVisibility() != View.GONE) {
+                        textCartItemCount!!.setVisibility(View.GONE)
+                    }
+                } else {
+                    textCartItemCount!!.setText(Math.min(mCartItemCount, 99).toString())
+                    if (textCartItemCount!!.getVisibility() != View.VISIBLE) {
+                        textCartItemCount!!.setVisibility(View.VISIBLE)
+                    }
+                }
+            }
+        }
     }
