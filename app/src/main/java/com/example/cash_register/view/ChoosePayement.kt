@@ -31,11 +31,6 @@ class ChoosePayement : AppCompatActivity() {
             btn2.setOnClickListener(View.OnClickListener {
                 val intent = Intent(this, Qrcode::class.java)
                 startActivity(intent) })
-
-        val btn3:Button = findViewById(R.id.cardscan)
-        btn3.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, ScanCreditCard::class.java)
-            startActivity(intent) })
         }
     }
 
