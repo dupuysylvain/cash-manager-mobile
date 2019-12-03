@@ -9,21 +9,37 @@ import android.nfc.tech.IsoDep
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
+import com.example.cash_register.Constants
+import com.example.cash_register.PaymentSuccessActivity
+import com.example.cash_register.Prefs
 import com.example.cash_register.R
+import com.example.cash_register.modele.ServerError
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_nfc_reader.*
-
+import okhttp3.*
 import java.io.IOException
 
 
 class NfcReader : AppCompatActivity(), NfcAdapter.ReaderCallback  {
     private var nfcAdapter: NfcAdapter? = null
+    private lateinit var purchaseBtn: Button
+    private var nfcId: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc_reader)
         val manager = this.getSystemService(Context.NFC_SERVICE) as NfcManager
         val adapter = manager.defaultAdapter
         if (adapter != null && adapter.isEnabled) {
+            purchaseBtn = findViewById(R.id.purchaseBtn)
+            purchaseBtn.isEnabled = false
+
+            purchaseBtn.setOnClickListener { purchaseCart() }
+
             nfcAdapter = NfcAdapter.getDefaultAdapter(this)
             av_from_code.setAnimation("nfc_payment2.json")
             av_from_code.playAnimation()
@@ -50,17 +66,68 @@ class NfcReader : AppCompatActivity(), NfcAdapter.ReaderCallback  {
 
     override fun onTagDiscovered(tag: Tag?) {
 
+        Log.i("NFC", tag!!.id.toString())
 
-        av_from_code.visibility = View.GONE
         val isoDep = IsoDep.get(tag)
         isoDep.connect()
-        //Utils.hexStringToByteArray("00A4040007A0000002471001"))
         runOnUiThread {
-            textView.append("\nCard Response: " + Utils.toHex(isoDep.tag.id))
+            av_from_code.visibility = View.GONE
+            purchaseBtn.isEnabled = true
             isoDep.close()
         }
+
+        nfcId = Utils.toHex(isoDep.tag.id)
+        Log.i("NFC", nfcId)
     }
 
+    private fun purchaseCart() {
+
+        Log.d("NFC","Purchase with CreditCard : " + nfcId)
+
+        val client = OkHttpClient()
+
+        val body = RequestBody.create(null, byteArrayOf())
+
+        val request = Request.Builder()
+            .url(Prefs.getApiUrl(applicationContext) + "/api/payment/purchase/creditCard/"+nfcId)
+            .post(body)
+            .header(
+                "Authorization",
+                Prefs.getString(applicationContext, Constants.SHARED_PREFS, Constants.TOKEN)
+            )
+            .build()
+
+        client.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
+                Log.d("error", e.message)
+            }
+
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                response.use {
+                    if(it.isSuccessful) {
+                        Log.d("OK: ", it.body()!!.string())
+                        handlePurchase()
+                    } else {
+                        val error = Gson().fromJson(response.body()!!.string(),  ServerError::class.java)
+
+                        runOnUiThread {
+                            Toast.makeText(
+                                applicationContext,
+                                error.message,
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+
+            }
+        })
+    }
+
+    private fun handlePurchase() {
+        val intent = Intent(applicationContext, PaymentSuccessActivity::class.java)
+        startActivity(intent)
+    }
 
     private fun startNfcSettingsActivity() {
         if (android.os.Build.VERSION.SDK_INT >= 21) {

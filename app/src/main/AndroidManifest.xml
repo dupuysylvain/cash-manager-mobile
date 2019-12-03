@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".PaymentSuccessActivity"></activity>
         <activity android:name=".view.ScanCreditCard" />
         <activity android:name=".Fragments.FragmentScanArticle" />
         <activity android:name=".Nfc.CardInfo" />
