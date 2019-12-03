@@ -1,45 +1,37 @@
 package com.example.cash_register.Fragments
 
-import android.app.Activity
-import android.app.PendingIntent.getActivity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import com.example.cash_register.*
-import com.example.cash_register.LoggingInterceptor
-import com.fivehundredpx.greedolayout.GreedoLayoutManager
-import com.fivehundredpx.greedolayout.GreedoSpacingItemDecoration
-import com.example.cash_register.greedo_layout_tools.MeasUtils
-import com.example.cash_register.greedo_layout_tools.PhotosAdapter
 import com.example.cash_register.services.Session
 import com.example.cash_register.view.ChoosePayement
 
 import java.io.IOException
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
 
-import com.example.cash_register.MyApplication.getAppContext
 import okhttp3.*
-import android.os.AsyncTask.execute
-import com.example.cash_register.dto.ArticleDto
-import com.example.cash_register.repositories.UserRepository
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import com.example.cash_register.modele.Article
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
-import java.util.ArrayList
-import com.airbnb.lottie.LottieCompositionFactory.fromJson
-import com.example.cash_register.modele.Article
-import com.airbnb.lottie.LottieCompositionFactory.fromJson
+import kotlinx.android.synthetic.main.activity_fragment__articles.*
+import com.google.gson.reflect.TypeToken
+
+
 
 
 class FragmentArticles : Fragment() {
+     lateinit var taVAriable: ArrayList<Article>
+    private lateinit var articleList: Article
+    private var articles: ArrayList<Article> =  arrayListOf()
+
     var API_URL = "http://localhost:8080/"
     val session: Session? = null
     override fun onCreateView(
@@ -47,32 +39,39 @@ class FragmentArticles : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_fragment__artcles, container, false)
+        val view = inflater.inflate(R.layout.activity_fragment__articles, container, false)
         val btn: Button = view.findViewById(R.id.btn_choosepay)
+        val recycler_view_articles: RecyclerView = view.findViewById(R.id.recycler_view_articles)
+
         btn.setOnClickListener(View.OnClickListener {
             val intent = Intent(activity, ChoosePayement::class.java)
             startActivity(intent)
         })
-        val photosAdapter = PhotosAdapter(this.requireContext())
+       /* val photosAdapter = PhotosAdapter(this.requireContext())
         val layoutManager = GreedoLayoutManager(photosAdapter)
         layoutManager.setMaxRowHeight(MeasUtils.dpToPx(150f, this.requireContext()))
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
 
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = photosAdapter
+        recycler_view_articles.layoutManager = layoutManager
+        recycler_view_articles.adapter = photosAdapter
 
         val spacing = MeasUtils.dpToPx(4f, this.requireContext())
-        recyclerView.addItemDecoration(GreedoSpacingItemDecoration(spacing))
-
+        recycler_view_articles.addItemDecoration(GreedoSpacingItemDecoration(spacing))*/
 
         getArticles()
+         taVAriable = ArrayList(articles)
+        recycler_view_articles.layoutManager = LinearLayoutManager(context)
+        // You can use GridLayoutManager if you want multiple columns. Enter the number of columns as a parameter.
+        recycler_view_articles.layoutManager = GridLayoutManager(context, 2)
+        recycler_view_articles.adapter = ArticleAdapter(taVAriable, this.requireContext())
+
+       // getArticles()
         return view
     }
 
 
     @Throws(IOException::class)
-    fun getArticles() {
+    fun getArticles(): ArrayList<Article> {
         val client = OkHttpClient.Builder()
             .build()
 
@@ -90,12 +89,20 @@ class FragmentArticles : Fragment() {
 
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                 val gson = Gson()
+               /* val listType = object : TypeToken<ArrayList<Article>>() {}.type
+               articles  = gson.fromJson(response.body()!!.string(), listType)
+                for(article in articles){
+                     articles.add(article)
+                 }*/
+
                 val articles = gson.fromJson(response.body()!!.string(),  Array<Article>::class.java)
                 for(article in articles){
-                    Log.d("article", article.image)
+                    articleList = article
+                    taVAriable.addAll(listOf(article))
                 }
             }
         })
+        return articles
     }
 }
 
