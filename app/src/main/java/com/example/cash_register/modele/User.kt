@@ -6,4 +6,6 @@ class User {
     var last_name = "undefined"
     var username = "undefined"
     var password = "undefined"
+    var articleList = emptyList<Article>()
+
 }

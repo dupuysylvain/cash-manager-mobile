@@ -11,6 +11,11 @@ import retrofit2.http.FormUrlEncoded
 
 
 interface UserService {
+
+    @GET("api/articles")
+    abstract fun getArticles(): Call<User>
+
+
     @POST("auth/authenticate")
     fun login(@Body userAuthenticationDto: UserAuthenticationDto): Call<User>
 
@@ -46,4 +51,7 @@ interface UserService {
     @FormUrlEncoded
     fun refreshToken(@Field("username") username: String,@Field("password")
     password: String, @Field("grant_type") grant_type: String): Call<User>
+
+
+
 }

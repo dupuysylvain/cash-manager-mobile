@@ -5,12 +5,12 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
-class BasicAuthInterceptor internal constructor(username: String?, password: String?) : Interceptor {
+class BasicAuthInterceptor internal constructor(token: String?) : Interceptor {
 
     private val credentials: String
 
     init {
-        credentials = Credentials.basic(password, username)
+        credentials = token.toString()
     }
 
     @Throws(IOException::class)

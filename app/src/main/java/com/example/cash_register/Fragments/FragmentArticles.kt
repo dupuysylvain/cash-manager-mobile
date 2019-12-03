@@ -29,9 +29,14 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.example.cash_register.MyApplication.getAppContext
 import okhttp3.*
 import android.os.AsyncTask.execute
+import com.example.cash_register.dto.ArticleDto
+import com.example.cash_register.repositories.UserRepository
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
-
-
+import java.util.ArrayList
+import com.airbnb.lottie.LottieCompositionFactory.fromJson
+import com.example.cash_register.modele.Article
+import com.airbnb.lottie.LottieCompositionFactory.fromJson
 
 
 class FragmentArticles : Fragment() {
@@ -60,6 +65,7 @@ class FragmentArticles : Fragment() {
         val spacing = MeasUtils.dpToPx(4f, this.requireContext())
         recyclerView.addItemDecoration(GreedoSpacingItemDecoration(spacing))
 
+
         getArticles()
         return view
     }
@@ -68,24 +74,26 @@ class FragmentArticles : Fragment() {
     @Throws(IOException::class)
     fun getArticles() {
         val client = OkHttpClient.Builder()
-            .addInterceptor(LoggingInterceptor())
             .build()
 
         val request = Request.Builder()
             .url(Prefs.getApiUrl(this.requireContext()) + "/api/articles")
-            .header("Authorization", Prefs.getString(this.requireContext(),Constants.SHARED_PREFS, Constants.TOKEN))
+            .header(
+                "Authorization",
+                Prefs.getString(this.requireContext(), Constants.SHARED_PREFS, Constants.TOKEN)
+            )
             .build()
-
-        val response = client.newCall(request).execute()
-        response.body()?.close()
-
         client.newCall(request).enqueue(object : okhttp3.Callback {
             override fun onFailure(call: okhttp3.Call, e: IOException) {
                 Log.d("error", e.message)
-             }
+            }
 
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
-                Log.d("success", response.message())
+                val gson = Gson()
+                val articles = gson.fromJson(response.body()!!.string(),  Array<Article>::class.java)
+                for(article in articles){
+                    Log.d("article", article.image)
+                }
             }
         })
     }

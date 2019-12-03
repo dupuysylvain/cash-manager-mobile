@@ -11,16 +11,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.example.cash_register.Constants
-import com.example.cash_register.Prefs
+import com.example.cash_register.*
+import com.example.cash_register.LoggingInterceptor
 import com.example.cash_register.view.SignUpActivity
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
- import com.example.cash_register.MainActivity
-import com.example.cash_register.R
 import com.example.cash_register.network.AuthenticationInterceptor
+import okhttp3.logging.HttpLoggingInterceptor
 
 
 class FragmentLogin : Fragment() {
@@ -54,12 +53,13 @@ class FragmentLogin : Fragment() {
 
     @Throws(IOException::class)
     fun sendLoginRequest() {
+
         val client = OkHttpClient()
+
         val body = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart("username", username.text.toString())
             .addFormDataPart("password", password.text.toString())
-
             .build()
 
         val request = Request.Builder()
@@ -67,6 +67,8 @@ class FragmentLogin : Fragment() {
             .post(body)
             .addHeader("Content-Type", "application/json")
             .build()
+
+
 
         client.newCall(request).enqueue(object : okhttp3.Callback {
             override fun onFailure(call: okhttp3.Call, e: IOException) {
@@ -83,7 +85,6 @@ class FragmentLogin : Fragment() {
 
     fun handleLogin(token: String) {
         Prefs.setString(requireContext(), Constants.SHARED_PREFS, Constants.TOKEN, token)
-        AuthenticationInterceptor(token)
          activity!!.runOnUiThread(Runnable {
             Toast.makeText(
                 requireContext(),
