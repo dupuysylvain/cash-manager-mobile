@@ -77,8 +77,12 @@ class FragmentLogin : Fragment() {
             }
 
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
-                var token = response.header("Authorization").toString()
-                handleLogin(token)
+                if(response.isSuccessful) {
+                    var token = response.header("Authorization").toString()
+                    handleLogin(token)
+                } else {
+                    handleLoginError()
+                }
             }
         })
     }
