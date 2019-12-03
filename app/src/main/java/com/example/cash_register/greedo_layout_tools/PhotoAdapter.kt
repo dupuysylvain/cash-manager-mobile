@@ -40,9 +40,9 @@ class PhotosAdapter(private val mContext: Context) : RecyclerView.Adapter<Photos
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        Picasso.with(mContext)
-            .load(mImageResIds[getLoopedIndex(position)])
-            .into(holder.mImageView)
+     //   Picasso.with(mContext)
+     //       .load(mImageResIds[getLoopedIndex(position)])
+     //       .into(holder.mImageView)
     }
 
     override fun getItemCount(): Int {
