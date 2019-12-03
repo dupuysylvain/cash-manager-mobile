@@ -6,5 +6,6 @@ package com.example.cash_register.modele
      var name = "undefined"
      var price = "undefined"
      var image = "undefined"
-     var quantite = "undefined"
+     var quantity = "undefined"
+     var cartQuantity = 0
  }
